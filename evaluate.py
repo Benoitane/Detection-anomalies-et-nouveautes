@@ -61,11 +61,8 @@ def plot_var_in_out(X,y,var1,var2,var3,var4):
   plt.tight_layout()
   plt.show()
 
-def evaluation_detection(X_test,ytrue,ypred):
-
-  var1 = 10
-  var2 = 20
-
+def evaluation_detection(X_test,ytrue,ypred, var1 = 10, var2 = 20):
+    
   ind_col = np.zeros(len(ytrue))
   ytrue = np.squeeze(np.asarray(ytrue))
   ind_col[(ytrue == -1)&(ypred == -1)] = 1

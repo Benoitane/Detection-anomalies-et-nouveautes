@@ -54,28 +54,36 @@ def simul_gaussian_data(nb_var,nb_outlier, nb_inlier=1000, std_outlier_gauss=0.1
     normal_data = np.random.multivariate_normal(mean_normal,std_normal,size = nb_inlier)
     
     mean0_min1 = np.copy(mean_normal)
-    mean0_min1[0] = mean_normal[0]-1
+    mean0_min1[0] = mean0_min1[0]-1
     
     mean0_min10 = np.copy(mean_normal)
-    mean0_min10[0] = mean_normal[0]-10
+    mean0_min10[0] = mean0_min10[0]-10
     
     mean0to9_min1 = np.copy(mean_normal)
-    mean0to9_min1[0:10] = mean_normal[0:10]-1
+    mean0to9_min1[0:10] =mean0to9_min1[0:10]-1
     
     list_mean = [mean0_min1,mean0_min10,mean0to9_min1]
     anomaly_list = []
     for i in range(len(list_mean)):
         anomaly_list.append(np.random.multivariate_normal(list_mean[i],np.identity(nb_var)*std_outlier_gauss,size = nb_outlier))
-    return normal_data, anomaly_list
+    return normal_data, mean_normal, anomaly_list
     
     
-def simul_uniform_data(nb_var,nb_outlier):
+def simul_uniform_data(nb_var,nb_outlier, mean_normal):
     """Only return outlier data simulated uniformly in a [0,10] hyperrectangle"""
     np.random.seed(0)
-    uniform_anomaly = np.random.uniform(0,10,size=(nb_outlier,nb_var))
+    uniform_anomaly = np.random.uniform(mean_normal-5,mean_normal+5,size=(nb_outlier,nb_var))
     return uniform_anomaly
     
     
+
+
+
+
+
+
+
+
     
 
 
