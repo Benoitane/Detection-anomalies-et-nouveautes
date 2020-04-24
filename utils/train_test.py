@@ -34,13 +34,15 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
         y_pred[y_pred == 1] = -1
         y_pred[y_pred == 0] = 1
         print('---------'+name+'-----------')
-        print(evaluate(y_test,y_pred))
+        eval_=evaluate(y_test,y_pred)
+        print(eval_)
         evaluation_detection(X_test, y_test,y_pred, var1, var2)
     if name == "Local Outlier Factor":
         algorithm.fit(X_train)
         y_pred = algorithm.fit_predict(X_test)
         print('---------'+name+'-----------')
-        print(evaluate(y_test,y_pred))
+        eval_=evaluate(y_test,y_pred)
+        print(eval_)
         evaluation_detection(X_test, y_test,y_pred, var1, var2)
     if name == "Deep MLP":
         # scale data here
@@ -55,22 +57,25 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
                       batch_size=config["batch_size"],shuffle=True,validation_split=0.33, verbose=0)
         y_pred = deep_predict(algorithm,X_test_scaled,config["outlier_prop"],y_test)
         print('---------'+name+'-----------')
-        print(evaluate(y_test,y_pred))
+        eval_=evaluate(y_test,y_pred)
+        print(eval_)
         evaluation_detection(X_test_scaled, y_test,y_pred, var1, var2)
   
     if name == "Robust covariance" :
         algorithm.fit(X_train)
         y_pred = -algorithm.predict(X_test)
         print('---------'+name+'-----------')
-        print(evaluate(y_test,y_pred))
+        eval_=evaluate(y_test,y_pred)
+        print(eval_)
         evaluation_detection(X_test, y_test,y_pred, var1, var2)
 
     if name not in algo_particuliers:
         algorithm.fit(X_train)
         y_pred = algorithm.predict(X_test)
         print('---------'+name+'-----------')
-        print(evaluate(y_test,y_pred))
+        eval_=evaluate(y_test,y_pred)
+        print(eval_)
         evaluation_detection(X_test, y_test,y_pred, var1, var2)
         
-    return y_pred
+    return y_pred, eval_
 
