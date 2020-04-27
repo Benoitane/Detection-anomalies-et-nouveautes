@@ -31,7 +31,6 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
     if (name == "KNN") | (name == "ABOD") | (name == "HBOS"):
         algorithm.fit(X_train)
         y_pred = algorithm.predict(X_test)
-        y_pred[y_pred == 1] = 1 #outlier
         y_pred[y_pred == 0] = -1 #normal
         print('---------'+name+'-----------')
         eval_=evaluate(y_test,y_pred)
@@ -39,7 +38,8 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
         evaluation_detection(X_test, y_test,y_pred, var1, var2)
     if name == "Local Outlier Factor":
         algorithm.fit(X_train)
-        y_pred = -algorithm.fit_predict(X_test) #outlier = 1
+        y_pred = algorithm.fit_predict(X_test) 
+        y_pred = y_pred * -1 #outlier = 1
         print('---------'+name+'-----------')
         eval_=evaluate(y_test,y_pred)
         print(eval_)
@@ -55,7 +55,8 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
         
         algorithm.fit(X_train_scaled, X_train_scaled, epochs=config["nb_epoch"],
                       batch_size=config["batch_size"],shuffle=True,validation_split=0.33, verbose=0)
-        y_pred = -deep_predict(algorithm,X_test_scaled,config["outlier_prop"],y_test)#outlier = 1
+        y_pred = deep_predict(algorithm,X_test_scaled,config["outlier_prop"],y_test)#outlier = 1
+        y_pred = y_pred * -1 
         print('---------'+name+'-----------')
         eval_=evaluate(y_test,y_pred)
         print(eval_)
@@ -63,7 +64,7 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
   
     if name == "Robust covariance" :
         algorithm.fit(X_train)
-        y_pred = algorithm.predict(X_test) #outlier = 1
+        y_pred = -algorithm.predict(X_test) #outlier = 1
         print('---------'+name+'-----------')
         eval_=evaluate(y_test,y_pred)
         print(eval_)

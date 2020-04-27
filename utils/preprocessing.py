@@ -24,6 +24,7 @@ def upload_data(path):
    y[y == 0] = 1
   if 'simulation' in path:
    y = np.transpose(y)
+  y = y * -1
   return X,y
 
 def split_data(split_method, X, y,seed=42):

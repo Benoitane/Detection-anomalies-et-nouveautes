@@ -65,9 +65,9 @@ def evaluation_detection(X_test,ytrue,ypred, var1 = 10, var2 = 20):
     
   ind_col = np.zeros(len(ytrue))
   ytrue = np.squeeze(np.asarray(ytrue))
-  ind_col[(ytrue == -1)&(ypred == -1)] = 1
-  ind_col[(ytrue == 1)&(ypred == -1)] = 2
-  ind_col[(ytrue == -1)&(ypred == 1)] = 3
+  ind_col[(ytrue == 1)&(ypred == 1)] = 1
+  ind_col[(ytrue == -1)&(ypred == 1)] = 2
+  ind_col[(ytrue == 1)&(ypred == -1)] = 3
 
   classes = ['Inlier en test et en prediction','Outlier en test et en prediction','Inlier manqué par le modèle','Outlier manqué par le modèle']
   col = ['yellow','green','blue','red']
@@ -122,7 +122,6 @@ def evaluate(ytrue,ypred):
     # # FN = CM[1][0]
     # # TP = CM[1][1]
     # # FP = CM[0][1]
-    # outlier = 1, inlier = -1
     TN = CM[1][0]
     FN = CM[0][1]
     TP = CM[0][0]
