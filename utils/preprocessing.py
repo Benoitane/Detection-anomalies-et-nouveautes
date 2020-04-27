@@ -26,7 +26,7 @@ def upload_data(path):
    y = np.transpose(y)
   return X,y
 
-def split_data(split_method, X, y):
+def split_data(split_method, X, y,seed=42):
   mask = np.where(y == 1)[0][:int(len(y[y == 1])*0.80)]
   index = list(np.arange(len(y)))
   anti_mask = list(set(index).difference(set(mask)))
@@ -36,9 +36,9 @@ def split_data(split_method, X, y):
     X_train, X_test, y_train, y_test = X[mask], X[anti_mask], y[mask], y[anti_mask]
   return X_train, X_test, y_train, y_test
 
-def prepro_data(path,type_):
+def prepro_data(path,type_,seed=42):
   X, y = upload_data(path)
-  X_train, X_test, y_train, y_test = split_data(type_,X,y)
+  X_train, X_test, y_train, y_test = split_data(type_,X,y,seed=seed)
   scaler = StandardScaler()
   X_train_scaled = scaler.fit_transform(X_train)
   X_test_scaled  = scaler.transform(X_test)
