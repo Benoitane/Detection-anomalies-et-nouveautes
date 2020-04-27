@@ -118,10 +118,15 @@ def deep_predict(model,X_test_scaled,outlier_prop,y_test):
 def evaluate(ytrue,ypred):
   
     CM = confusion_matrix(ytrue, ypred)
-    TN = CM[0][0]
-    FN = CM[1][0]
-    TP = CM[1][1]
-    FP = CM[0][1]
+    # # TN = CM[0][0]
+    # # FN = CM[1][0]
+    # # TP = CM[1][1]
+    # # FP = CM[0][1]
+    # outlier = 1, inlier = -1
+    TN = CM[1][0]
+    FN = CM[0][1]
+    TP = CM[0][0]
+    FP = CM[1][0]
 
     # round metrics
     metrics = pd.DataFrame([],columns=['accuracy','recall','True negative rate','False discovery rate'])
