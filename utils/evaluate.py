@@ -76,7 +76,8 @@ def evaluation_detection(X_test,ytrue,ypred, var1 = 10, var2 = 20):
 
   ax0 = fig.add_subplot(5,2,1)
   data = confusion_matrix(ytrue, ypred)
-  labels = ['Outlier', 'Inliers']
+  # labels = ['Outlier', 'Inliers']
+  labels = ['Inliers', 'Outliers'] #inlier = -1, outlier = 1
   sns.heatmap(data, xticklabels = labels, yticklabels = labels, annot = True, fmt='d', cmap="Reds", ax=ax0) 
   ax0.set_title('Matrice de confusion')
 
@@ -122,11 +123,12 @@ def evaluate(ytrue,ypred):
     TP = CM[1][1]
     FP = CM[0][1]
 
+    # round metrics
     metrics = pd.DataFrame([],columns=['accuracy','recall','True negative rate','False discovery rate'])
-    metrics['accuracy'] = [accuracy_score(ytrue,ypred)]
-    metrics['recall'] = [recall_score(ytrue,ypred,average='macro')]
-    metrics['True negative rate'] = [FN/(TP+FN)]
-    metrics['False discovery rate'] = [FP/(TP+FP)]
+    metrics['accuracy'] = [np.round(accuracy_score(ytrue,ypred),3)]
+    metrics['recall'] = [np.round(recall_score(ytrue,ypred,average='macro'))]
+    metrics['True negative rate'] = [np.round(FN/(TP+FN))]
+    metrics['False discovery rate'] = [np.round(FP/(TP+FP))]
 
     return metrics
 
