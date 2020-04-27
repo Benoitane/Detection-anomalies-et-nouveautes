@@ -31,7 +31,7 @@ def split_data(split_method, X, y,seed=42):
   index = list(np.arange(len(y)))
   anti_mask = list(set(index).difference(set(mask)))
   if split_method == "anomalies":
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=seed)
   if split_method == "nouveautes":
     X_train, X_test, y_train, y_test = X[mask], X[anti_mask], y[mask], y[anti_mask]
   return X_train, X_test, y_train, y_test
