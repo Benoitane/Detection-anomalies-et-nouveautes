@@ -41,19 +41,19 @@ def plot_var_in_out(X,y,var1,var2,var3,var4):
   fig = plt.figure(figsize=(20,18))
 
   ax0 = fig.add_subplot(5,3,1)
-  ax0.scatter(x1, x2, alpha=0.7, c=y)
+  ax0.scatter(x1, x2, alpha=0.7, c=y*-1)
   ax0.set_title('Représentation des données selon les variables ' +str(var1)+ ' et '+ str(var2))
   ax0.set_xlabel('variable '+str(var1)) 
   ax0.set_ylabel('variable '+str(var2)) 
 
   ax1 = fig.add_subplot(5,3,2)
-  ax1.scatter(x1, x3, alpha=0.7,  c=y)
+  ax1.scatter(x1, x3, alpha=0.7,  c=y*-1)
   ax1.set_title('Représentation des données selon les variables ' +str(var1)+ ' et '+ str(var3))
   ax1.set_xlabel('variable '+str(var1))
   ax1.set_ylabel('variable '+str(var3))
 
   ax2 = fig.add_subplot(5,3,3)
-  ax2.scatter(x1, x4, alpha=0.7,  c=y)
+  ax2.scatter(x1, x4, alpha=0.7,  c=y*-1)
   ax2.set_title('Représentation des données selon les variables ' +str(var1)+ ' et '+ str(var4))
   ax2.set_xlabel('variable '+str(var1))
   ax2.set_ylabel('variable '+str(var4))
@@ -122,17 +122,17 @@ def evaluate(ytrue,ypred):
     # # FN = CM[1][0]
     # # TP = CM[1][1]
     # # FP = CM[0][1]
-    TN = CM[1][0]
+    TN = CM[1][1]
     FN = CM[0][1]
     TP = CM[0][0]
     FP = CM[1][0]
 
     # round metrics
     metrics = pd.DataFrame([],columns=['accuracy','recall','True negative rate','False discovery rate'])
-    metrics['accuracy'] = [np.round(accuracy_score(ytrue,ypred),3)]
-    metrics['recall'] = [np.round(recall_score(ytrue,ypred,average='macro'))]
-    metrics['True negative rate'] = [np.round(FN/(TP+FN))]
-    metrics['False discovery rate'] = [np.round(FP/(TP+FP))]
+    metrics['accuracy'] = [accuracy_score(ytrue,ypred)]
+    metrics['recall'] = [recall_score(ytrue,ypred,average='macro')]
+    metrics['True negative rate'] = [FN/(TP+FN)]
+    metrics['False discovery rate'] = [FP/(TP+FP)]
 
     return metrics
 

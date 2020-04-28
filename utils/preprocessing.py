@@ -28,7 +28,7 @@ def upload_data(path):
   return X,y
 
 def split_data(split_method, X, y,seed=42):
-  mask = np.where(y == 1)[0][:int(len(y[y == 1])*0.80)]
+  mask = np.where(y == -1)[0][:int(len(y[y == -1])*0.80)]
   index = list(np.arange(len(y)))
   anti_mask = list(set(index).difference(set(mask)))
   if split_method == "anomalies":
