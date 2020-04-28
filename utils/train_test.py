@@ -13,6 +13,7 @@ from keras import regularizers
 from sklearn.preprocessing import  StandardScaler, MinMaxScaler
 from utils.evaluate import plot_var_in_out, evaluation_detection, deep_predict, evaluate
 from utils.preprocessing import upload_data, split_data, prepro_data, simul_gaussian_data, simul_uniform_data
+import numpy as np
 
 def CustomAutoencoder(input_dim, encoding_dim=10):
     input_layer = Input(shape=(input_dim, ))
@@ -63,8 +64,12 @@ def AlgoTrainPredict(name, algorithm, algo_particuliers, X_train, X_test, y_test
         evaluation_detection(X_test_scaled, y_test,y_pred, var1, var2)
   
     if name == "Robust covariance" :
+        print("EllipticEnvelope")
         algorithm.fit(X_train)
         y_pred = -algorithm.predict(X_test) #outlier = 1
+        if np.sum(y_pred==-1) < np.sum(y_pred==1):
+            print("adjust outlier definition")
+            y_pred = -y_pred
         print('---------'+name+'-----------')
         eval_=evaluate(y_test,y_pred)
         print(eval_)
