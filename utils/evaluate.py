@@ -130,7 +130,7 @@ def evaluate(ytrue,ypred):
     # round metrics
     metrics = pd.DataFrame([],columns=['accuracy','recall','True negative rate','False discovery rate'])
     metrics['accuracy'] = [accuracy_score(ytrue,ypred)]
-    metrics['recall'] = [recall_score(ytrue,ypred,average='macro')]
+    metrics['recall'] = [recall_score(ytrue,ypred)]
     metrics['True negative rate'] = [FN/(TP+FN)]
     metrics['False discovery rate'] = [FP/(TP+FP)]
 
